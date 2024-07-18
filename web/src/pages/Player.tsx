@@ -6,6 +6,7 @@ import { PlayersType } from "../store/slices/playersSlice";
 import { fetchNui } from "../utils/fetchNui";
 import { PlayerType } from "../utils/types";
 import SingleModal from "../modals/SingleModal";
+import ConfirmModal from "../modals/ConfirmModal";
 
 const Player: FC = () => {
     const { id = "" } = useParams<{ id: string }>();
@@ -14,6 +15,7 @@ const Player: FC = () => {
     const player = players.find(player => player.id === PlayerId);
     const [kickModal, setKickModal] = useState<boolean>(false);
     const [dmModal, setDmModal] = useState<boolean>(false);
+    const [reviveModal, setReviveModal] = useState<boolean>(false);
     if (!player) {
         return <div className="text-white">Player not found</div>;
     }
@@ -26,7 +28,10 @@ const Player: FC = () => {
         setDmModal(false);
         console.log(content);
     };
-
+    const submitRevive = () => {
+        setReviveModal(false);
+        fetchNui("revivePlayer", [player.id]);
+    };
     const [playerData, setPlayerData] = useState<PlayerType | null>(null);
 
     useEffect(() => {
@@ -40,6 +45,7 @@ const Player: FC = () => {
         <>
             {kickModal && <SingleModal onSubmit={submitKick} onCancel={() => setKickModal(false)} placeholder="Powod" label="Kick"/>}
             {dmModal && <SingleModal onSubmit={submitDM} onCancel={() => setDmModal(false)} placeholder="Tresc" label="Wiadmosc Prywatna"/>}
+            {reviveModal && <ConfirmModal onSubmit={submitRevive} onCancel={() => setReviveModal(false)} label="Revive" text="Czy napewno chcesz zrewowac?"/>}
             <div className="text-white">
                 <div className="m-4">
                     <h1 className="text-2xl font-bold">Informacje</h1>
@@ -57,6 +63,9 @@ const Player: FC = () => {
                     </button>
                     <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded m-2" onClick={() => setDmModal(true)}>
                         Wiadomosc Prywatna
+                    </button>
+                    <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded m-2" onClick={() => setReviveModal(true)}>
+                        Revive
                     </button>
                 </div>
             </div>

@@ -43,3 +43,14 @@ ESX.RegisterServerCallback('jhn_admin:kickPlayer', function(source, cb, playerId
         cb(false)
     end
 end)
+RegisterServerEvent("jhn_admin:revivePlayer")
+AddEventHandler("jhn_admin:revivePlayer", function(playerId)
+    local xPlayer = ESX.GetPlayerFromId(source)
+    
+    if xPlayer.getGroup() == "admin" then
+        TriggerClientEvent("esx_ambulancejob:revive", playerId)
+        xPlayer.showNotification("Dostałeś revive od " .. GetPlayerName(source))
+    else
+        print("Player " .. source .. " tried to revive player " .. playerId .. " but doesn't have permission")
+    end
+end)

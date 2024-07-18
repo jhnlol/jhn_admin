@@ -26,11 +26,6 @@ RegisterNuiCallback("kickPlayer", function(data, cb)
     local playerId = data[1]
     local reason = data[2]
     
-    if not playerId or not reason then
-        print("Invalid data received")
-        return
-    end
-    
     ESX.TriggerServerCallback('jhn_admin:kickPlayer', function(result)
         if result then
             print("Player kicked successfully")
@@ -38,4 +33,9 @@ RegisterNuiCallback("kickPlayer", function(data, cb)
             print("Failed to kick player")
         end
     end, playerId, reason)
+end)
+
+RegisterNuiCallback("revivePlayer", function(data, cb)
+    local playerId = data[1]
+    TriggerServerEvent("jhn_admin:revivePlayer", playerId)
 end)
