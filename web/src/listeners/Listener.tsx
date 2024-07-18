@@ -11,6 +11,7 @@ const Listener: FC = () => {
         const handleMessage = (e: MessageEvent) => {
             const { action, data } = e.data;
             if (action === "setVisible") {
+                navigate("/");
                 dispatch(setVisible(true));
                 dispatch(setPlayers(data.players));
             }

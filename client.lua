@@ -12,7 +12,7 @@ RegisterCommand("admin_menu", function()
     end)
 end)
 
-RegisterNUICallback("hideUI", function(data, cb)
+RegisterNUICallback("closeMenu", function(data, cb)
     SetNuiFocus(false, false)
     cb({})
 end)
