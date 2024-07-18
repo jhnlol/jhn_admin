@@ -12,8 +12,6 @@ const Listener: FC = () => {
             const { action, data } = e.data;
             if (action === "setVisible") {
                 dispatch(setVisible(true));
-                console.log("Xd")
-                console.log(data.players)
                 dispatch(setPlayers(data.players));
             }
         };
