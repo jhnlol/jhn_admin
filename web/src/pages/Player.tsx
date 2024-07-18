@@ -16,10 +16,10 @@ const Player: FC = () => {
     const [kickModal, setKickModal] = useState<boolean>(false);
     const [dmModal, setDmModal] = useState<boolean>(false);
     const [reviveModal, setReviveModal] = useState<boolean>(false);
+    const [healModal, setHealModal] = useState<boolean>(false);
     if (!player) {
         return <div className="text-white">Player not found</div>;
     }
-
     const submitKick = (reason: string) => {
         setKickModal(false);
         fetchNui("kickPlayer", [player.id, reason]);
