@@ -1,7 +1,6 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./store/store";
-import { debugData } from "./utils/debugData";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Player from "./pages/Player";
@@ -16,27 +15,7 @@ const App: FC = () => {
   const closeMenu = (): void => {
     dispatch(setVisible(false));
     fetchNui("closeMenu");
-  }
-  useEffect(() => {
-    debugData([
-      {
-        action: 'setVisible',
-        data: {
-          players: [
-            {
-              id: "1",
-              nick: "JHN",
-            },
-            {
-              id: "2",
-              nick: "JAN",
-            },
-          ],
-        },
-      },
-    ]);
-  }, []);
-
+  };
   return (
     <BrowserRouter>
       <Listener />

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import {useNavigate} from "react-router-dom";
 import { setVisible } from "../store/slices/appSlice";
 import { setPlayers } from "../store/slices/playersSlice";
+import { setPerms } from "../store/slices/adminSlice";
 
 const Listener: FC = () => {
     const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const Listener: FC = () => {
                 navigate("/");
                 dispatch(setVisible(true));
                 dispatch(setPlayers(data.players));
+                dispatch(setPerms(data.perms));
             }
         };
         window.addEventListener("message", handleMessage);

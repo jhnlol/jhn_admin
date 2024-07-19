@@ -18,7 +18,19 @@ interface ConfirmModalType {
     onSubmit: () => void,
     onCancel: () => void,
 }
-
+interface PermsType {
+    kick: boolean;
+    dm: boolean;
+    revive: boolean;
+    heal: boolean;
+}
+interface PlayersType {
+    id: number;
+    nick: string;
+  }
+  
 export type { PlayerType };
 export type { SingleModalType };
 export type { ConfirmModalType };
+export type { PermsType };
+export type { PlayersType };

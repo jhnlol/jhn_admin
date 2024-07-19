@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import appSlice from './slices/appSlice.ts';
 import playersSlice from './slices/playersSlice.ts';
-
+import adminSlice from './slices/adminSlice.ts';
 ///@ts-ignore
 const store = configureStore({
   reducer: {
     app: appSlice,
     players: playersSlice,
+    admin: adminSlice,
   },
 });
 

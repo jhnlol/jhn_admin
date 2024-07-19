@@ -1,12 +1,17 @@
 ESX = exports["es_extended"]:getSharedObject()
 
 RegisterCommand("admin_menu", function()
-    ESX.TriggerServerCallback('jhn_admin:openMenu', function(players)
+    ESX.TriggerServerCallback('jhn_admin:openMenu', function(players, perms)
+        if (not perms.openMenu) then 
+            ESX.ShowNotification("You don't have permission to open this menu")
+            return
+        end
         SetNuiFocus(true, true)
         SendNUIMessage({
             action = "setVisible",
             data = {
-                players = players
+                players = players,
+                perms = perms
             }
         })
     end)

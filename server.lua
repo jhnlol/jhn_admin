@@ -3,6 +3,9 @@ ESX = exports["es_extended"]:getSharedObject()
 ESX.RegisterServerCallback("jhn_admin:openMenu", function(source, cb)
     local players = {}
     local xPlayers = ESX.GetPlayers()
+    local xPlayer = ESX.GetPlayerFromId(source)
+    local group = xPlayer.getGroup()
+    local perms = Config.perms[group] or Config.perms["user"] 
 
     for _, playerId in ipairs(xPlayers) do
         local xPlayer = ESX.GetPlayerFromId(playerId)
@@ -11,7 +14,8 @@ ESX.RegisterServerCallback("jhn_admin:openMenu", function(source, cb)
             nick = GetPlayerName(xPlayer.source)
         })
     end
-    cb(players)
+    
+    cb(players, perms)
 end)
 ESX.RegisterServerCallback('jhn_admin:getPlayerData', function(source, cb, playerId)
     local xPlayer = ESX.GetPlayerFromId(playerId)

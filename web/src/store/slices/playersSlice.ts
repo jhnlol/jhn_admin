@@ -1,10 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface PlayersType {
-  id: number;
-  nick: string;
-}
-
+import { PlayersType } from '../../utils/types';
 
 interface PlayerState {
   players: PlayersType[];

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { RootState } from "../store/store";
 import { PlayersType } from "../store/slices/playersSlice";
 import { fetchNui } from "../utils/fetchNui";
-import { PlayerType } from "../utils/types";
+import { PermsType, PlayerType } from "../utils/types";
 import SingleModal from "../modals/SingleModal";
 import ConfirmModal from "../modals/ConfirmModal";
 
@@ -13,6 +13,8 @@ const Player: FC = () => {
     const PlayerId = parseInt(id);
     const players: PlayersType[] = useSelector((state: RootState) => state.players.players);
     const player = players.find(player => player.id === PlayerId);
+    const perms: PermsType = useSelector((state: RootState) => state.admin.perms);
+
     const [kickModal, setKickModal] = useState<boolean>(false);
     const [dmModal, setDmModal] = useState<boolean>(false);
     const [reviveModal, setReviveModal] = useState<boolean>(false);
@@ -20,17 +22,24 @@ const Player: FC = () => {
     if (!player) {
         return <div className="text-white">Player not found</div>;
     }
+
     const submitKick = (reason: string) => {
         setKickModal(false);
         fetchNui("kickPlayer", [player.id, reason]);
     };
+
     const submitDM = (content: string) => {
         setDmModal(false);
         console.log(content);
     };
+
     const submitRevive = () => {
         setReviveModal(false);
         fetchNui("revivePlayer", [player.id]);
+    };
+    const submitHeal = () => {
+        setHealModal(false);
+        fetchNui("healPlayer", [player.id]);
     };
     const [playerData, setPlayerData] = useState<PlayerType | null>(null);
 
@@ -38,14 +47,15 @@ const Player: FC = () => {
         fetchNui<PlayerType>("getPlayerData", [player.id])
             .then((data) => {
                 setPlayerData(data);
-            })
+            });
     }, [player]);
 
     return (
         <>
-            {kickModal && <SingleModal onSubmit={submitKick} onCancel={() => setKickModal(false)} placeholder="Powod" label="Kick"/>}
-            {dmModal && <SingleModal onSubmit={submitDM} onCancel={() => setDmModal(false)} placeholder="Tresc" label="Wiadmosc Prywatna"/>}
-            {reviveModal && <ConfirmModal onSubmit={submitRevive} onCancel={() => setReviveModal(false)} label="Revive" text="Czy napewno chcesz zrewowac?"/>}
+            {kickModal && <SingleModal onSubmit={submitKick} onCancel={() => setKickModal(false)} placeholder="Powod" label="Kick" />}
+            {dmModal && <SingleModal onSubmit={submitDM} onCancel={() => setDmModal(false)} placeholder="Tresc" label="Wiadmosc Prywatna" />}
+            {reviveModal && <ConfirmModal onSubmit={submitRevive} onCancel={() => setReviveModal(false)} label="Revive" text="Czy napewno chcesz zrewowac?" />}
+            {healModal && <ConfirmModal onSubmit={submitHeal} onCancel={() => setHealModal(false)} label="Heal" text="Czy napewno chcesz zhealowac?" />}
             <div className="text-white">
                 <div className="m-4">
                     <h1 className="text-2xl font-bold">Informacje</h1>
@@ -58,15 +68,26 @@ const Player: FC = () => {
                 </div>
                 <div className="m-4">
                     <h1 className="text-2xl font-bold m-2">Akcje</h1>
-                    <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded m-2" onClick={() => setKickModal(true)}>
-                        Kick
-                    </button>
-                    <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded m-2" onClick={() => setDmModal(true)}>
-                        Wiadomosc Prywatna
-                    </button>
-                    <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded m-2" onClick={() => setReviveModal(true)}>
-                        Revive
-                    </button>
+                    {perms.kick && (
+                        <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded m-2" onClick={() => setKickModal(true)}>
+                            Kick
+                        </button>
+                    )}
+                    {perms.dm && (
+                        <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded m-2" onClick={() => setDmModal(true)}>
+                            Wiadomosc Prywatna
+                        </button>
+                    )}
+                    {perms.revive && (
+                        <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded m-2" onClick={() => setReviveModal(true)}>
+                            Revive
+                        </button>
+                    )}
+                    {perms.heal && (
+                        <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded m-2" onClick={() => setHealModal(true)}>
+                            Heal
+                        </button>
+                    )}
                 </div>
             </div>
         </>
