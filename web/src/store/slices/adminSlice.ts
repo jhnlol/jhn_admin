@@ -13,6 +13,7 @@ const initialState: AdminState = {
         heal: false,
         announcment: false,
         spawn: false,
+        saveAll: false,
     },
 };
 

@@ -1,6 +1,5 @@
 import { FC } from "react";
 import { ConfirmModalType } from "../utils/types";
-
 const ConfirmModal: FC<ConfirmModalType> = ({ label, text, onSubmit, onCancel }) => {
     return (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">

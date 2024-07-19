@@ -8,6 +8,7 @@ Config.perms = {
         heal = true,
         announcment = true,
         spawn = true,
+        saveAll = true,
     },
     ["superadmin"] = {
         openMenu = true,
@@ -17,6 +18,7 @@ Config.perms = {
         heal = true,
         announcment = true,
         spawn = true,
+        saveAll = true,
     },
     ["user"] = {
         openMenu = false,
@@ -25,7 +27,8 @@ Config.perms = {
         revive = false,
         heal = false,
         announcment = false,
-        spawn = true,
+        spawn = false,
+        saveAll = false,
     },
 }
 Config.spawn = vector3(0, 0, 0)

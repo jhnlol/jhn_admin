@@ -28,12 +28,20 @@ const Server: FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-6">
                     {perms.announcment && (
                         <button
-                            className="texr-lg bg-gray-500 p-2 rounded-lg shadow-lg flex items-center justify-center space-x-4 cursor-pointer hover:bg-gray-700 transition-colors duration-300"
+                            className="text-lg bg-gray-500 p-2 rounded-lg shadow-lg flex items-center justify-center space-x-4 cursor-pointer hover:bg-gray-700 transition-colors duration-300"
                             onClick={() => handleModal("announcment", true)} 
                         >
                             Ogloszenie
                         </button>
-                    )}    
+                    )}
+                    {perms.saveAll && (
+                        <button
+                            className="text-lg bg-gray-500 p-2 rounded-lg shadow-lg flex items-center justify-center space-x-4 cursor-pointer hover:bg-gray-700 transition-colors duration-300"
+                            onClick={() => fetchNui("saveAll")}
+                        >        
+                            SaveAll 
+                        </button>   
+                    )}
                 </div>
             </div>
         </>

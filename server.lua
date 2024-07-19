@@ -103,3 +103,15 @@ AddEventHandler("jhn_admin:spawnPlayer", function(playerId)
         print("Player " .. source .. " tried to spawn player " .. playerId .. " but doesn't have permission")
     end
 end)
+RegisterServerEvent("jhn_admin:saveAll")
+AddEventHandler("jhn_admin:saveAll", function()
+    local xPlayer = ESX.GetPlayerFromId(source)
+    
+    if (Config.perms[xPlayer.getGroup()].saveAll) then
+        ESX.SavePlayers()
+        print("All players saved by " .. GetPlayerName(source))
+        xPlayer.showNotification("SaveALl udany!")
+    else
+        print("Player " .. source .. " tried to save all players but doesn't have permission")
+    end
+end)
