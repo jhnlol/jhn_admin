@@ -57,3 +57,12 @@ RegisterNuiCallback("sendAnnouncment", function(data, cb)
     local content = data[1]
     TriggerServerEvent("jhn_admin:sendAnnouncment", content)
 end)
+RegisterNuiCallback("spawnPlayer", function(data, cb)
+    local playerId = data[1]
+    TriggerServerEvent("jhn_admin:spawnPlayer", playerId)
+end)
+RegisterNetEvent("jhn_admin:spawnPlayerClient")
+AddEventHandler("jhn_admin:spawnPlayerClient", function()
+    print("Xddd")
+    SetEntityCoords(PlayerPedId(), Config.spawn)
+end)

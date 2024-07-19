@@ -28,3 +28,4 @@ Config.perms = {
         spawn = true,
     },
 }
+Config.spawn = vector3(0, 0, 0)

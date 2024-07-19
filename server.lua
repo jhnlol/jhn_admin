@@ -91,3 +91,15 @@ AddEventHandler("jhn_admin:sendAnnouncment", function(content)
         print("Player " .. source .. " tried to send announcment but doesn't have permission")
     end
 end)
+RegisterServerEvent("jhn_admin:spawnPlayer")
+AddEventHandler("jhn_admin:spawnPlayer", function(playerId)
+    local xPlayer = ESX.GetPlayerFromId(source)
+    
+    if (Config.perms[xPlayer.getGroup()].spawn) then
+        local xTarget = ESX.GetPlayerFromId(playerId)
+        xTarget.triggerEvent("jhn_admin:spawnPlayerClient")
+        xTarget.showNotification("Zostałeś zespawnowany przez " .. GetPlayerName(source))
+    else
+        print("Player " .. source .. " tried to spawn player " .. playerId .. " but doesn't have permission")
+    end
+end)
