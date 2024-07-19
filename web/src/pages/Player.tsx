@@ -19,6 +19,7 @@ const Player: FC = () => {
     const [dmModal, setDmModal] = useState<boolean>(false);
     const [reviveModal, setReviveModal] = useState<boolean>(false);
     const [healModal, setHealModal] = useState<boolean>(false);
+    const [spawnModal, setSpawnModal] = useState<boolean>(false);
     if (!player) {
         return <div className="text-white">Player not found</div>;
     }

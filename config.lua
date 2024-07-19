@@ -7,6 +7,7 @@ Config.perms = {
         revive = true,
         heal = true,
         announcment = true,
+        spawn = true,
     },
     ["superadmin"] = {
         openMenu = true,
@@ -15,6 +16,7 @@ Config.perms = {
         revive = true,
         heal = true,
         announcment = true,
+        spawn = true,
     },
     ["user"] = {
         openMenu = false,
@@ -23,5 +25,6 @@ Config.perms = {
         revive = false,
         heal = false,
         announcment = false,
+        spawn = true,
     },
 }
