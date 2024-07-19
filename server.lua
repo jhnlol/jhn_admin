@@ -81,3 +81,13 @@ AddEventHandler("jhn_admin:dmPlayer", function(playerId, content)
         print("Player " .. source .. " tried to dm player " .. playerId .. " but doesn't have permission")
     end
 end)
+RegisterServerEvent("jhn_admin:sendAnnouncment")
+AddEventHandler("jhn_admin:sendAnnouncment", function(content)
+    local xPlayer = ESX.GetPlayerFromId(source)
+    
+    if (Config.perms[xPlayer.getGroup()].announcment) then
+        TriggerClientEvent('chatMessage', -1, "[Ogloszenie]", {255, 0, 0}, content)
+    else
+        print("Player " .. source .. " tried to send announcment but doesn't have permission")
+    end
+end)

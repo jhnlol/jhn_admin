@@ -58,7 +58,7 @@ const Player: FC = () => {
             {reviveModal && <ConfirmModal onSubmit={submitRevive} onCancel={() => setReviveModal(false)} label="Revive" text="Czy napewno chcesz zrewowac?" />}
             {healModal && <ConfirmModal onSubmit={submitHeal} onCancel={() => setHealModal(false)} label="Heal" text="Czy napewno chcesz zhealowac?" />}
             <div className="text-white">
-                <div className="m-4">
+                <div className="m-6">
                     <h1 className="text-2xl font-bold">Informacje</h1>
                     <p>ID: <span className="font-bold">{player.id}</span></p>
                     <p>Nick: <span className="font-bold">{player.nick}</span></p>

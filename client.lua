@@ -53,3 +53,7 @@ RegisterNuiCallback("dmPlayer", function(data, cb)
     local content = data[2]
     TriggerServerEvent("jhn_admin:dmPlayer", playerId, content)
 end)
+RegisterNuiCallback("sendAnnouncment", function(data, cb)
+    local content = data[1]
+    TriggerServerEvent("jhn_admin:sendAnnouncment", content)
+end)
