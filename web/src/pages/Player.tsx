@@ -30,7 +30,8 @@ const Player: FC = () => {
 
     const submitDM = (content: string) => {
         setDmModal(false);
-        console.log(content);
+        console.log(player.id, content);
+        fetchNui("dmPlayer", [player.id, content]);
     };
 
     const submitRevive = () => {
@@ -65,6 +66,7 @@ const Player: FC = () => {
                     <p>Praca: <span className="font-bold">{playerData?.job}</span></p>
                     <p>Ilosc pieniedzy w gotowce: <span className="font-bold">{playerData?.money}$</span></p>
                     <p>Ilosc pieniedzy w banku: <span className="font-bold">{playerData?.moneyBank}$</span></p>
+                    <p>Permisje: <span className="font-bold">{playerData?.group}</span></p>
                 </div>
                 <div className="m-4">
                     <h1 className="text-2xl font-bold m-2">Akcje</h1>

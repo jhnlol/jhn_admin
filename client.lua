@@ -44,3 +44,12 @@ RegisterNuiCallback("revivePlayer", function(data, cb)
     local playerId = data[1]
     TriggerServerEvent("jhn_admin:revivePlayer", playerId)
 end)
+RegisterNuiCallback("healPlayer", function(data, cb)
+    local playerId = data[1]
+    TriggerServerEvent("jhn_admin:healPlayer", playerId)
+end)
+RegisterNuiCallback("dmPlayer", function(data, cb)
+    local playerId = data[1]
+    local content = data[2]
+    TriggerServerEvent("jhn_admin:dmPlayer", playerId, content)
+end)

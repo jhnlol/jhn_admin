@@ -5,6 +5,7 @@ interface PlayerType {
     job: string;
     money: number;
     moneyBank: number;
+    group: string;
 }
 interface SingleModalType {
     onSubmit: (arg1: string) => void;

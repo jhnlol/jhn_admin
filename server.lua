@@ -27,7 +27,8 @@ ESX.RegisterServerCallback('jhn_admin:getPlayerData', function(source, cb, playe
             name = xPlayer.getName(), 
             job = xPlayer.job.label, 
             money = xPlayer.getMoney(),
-            moneyBank = xPlayer.getAccount("bank").money
+            moneyBank = xPlayer.getAccount("bank").money,
+            group = xPlayer.getGroup()
         }
 
         cb(playerData)
@@ -38,23 +39,45 @@ end)
 ESX.RegisterServerCallback('jhn_admin:kickPlayer', function(source, cb, playerId, reason)
     local xPlayer = ESX.GetPlayerFromId(source)
     
-    if xPlayer.getGroup() == "admin" then
+    if Config.perms[xPlayer.getGroup()].kick then
         DropPlayer(playerId, "Zostales wyrzucony z serwera. Powod: " .. reason..". Przez: " .. GetPlayerName(source))
         print("Player " .. playerId .. " has been kicked for reason: " .. reason)
-        cb(true)
     else
         print("Player " .. source .. " tried to kick player " .. playerId .. " but doesn't have permission")
-        cb(false)
     end
 end)
 RegisterServerEvent("jhn_admin:revivePlayer")
 AddEventHandler("jhn_admin:revivePlayer", function(playerId)
     local xPlayer = ESX.GetPlayerFromId(source)
     
-    if xPlayer.getGroup() == "admin" then
+    if (Config.perms[xPlayer.getGroup()].revive) then
+        local xTarget = ESX.GetPlayerFromId(playerId)
         TriggerClientEvent("esx_ambulancejob:revive", playerId)
-        xPlayer.showNotification("Dostałeś revive od " .. GetPlayerName(source))
+        xTarget.showNotification("Dostałeś revive od " .. GetPlayerName(source))
     else
         print("Player " .. source .. " tried to revive player " .. playerId .. " but doesn't have permission")
+    end
+end)
+RegisterServerEvent("jhn_admin:healPlayer")
+AddEventHandler("jhn_admin:healPlayer", function(playerId)
+    local xPlayer = ESX.GetPlayerFromId(source)
+    
+    if (Config.perms[xPlayer.getGroup()].heal) then
+        local xTarget = ESX.GetPlayerFromId(playerId)
+        TriggerClientEvent("esx_ambulancejob:heal", playerId)
+        xTarget.showNotification("Dostałeś heal od " .. GetPlayerName(source))
+    else
+        print("Player " .. source .. " tried to heal player " .. playerId .. " but doesn't have permission")
+    end
+end)
+RegisterServerEvent("jhn_admin:dmPlayer")
+AddEventHandler("jhn_admin:dmPlayer", function(playerId, content)
+    local xPlayer = ESX.GetPlayerFromId(source)
+    
+    if (Config.perms[xPlayer.getGroup()].dm) then
+        local xTarget = ESX.GetPlayerFromId(playerId)
+        xTarget.showNotification("Wiadomość od " .. GetPlayerName(source) .. ": " .. content)
+    else
+        print("Player " .. source .. " tried to dm player " .. playerId .. " but doesn't have permission")
     end
 end)
