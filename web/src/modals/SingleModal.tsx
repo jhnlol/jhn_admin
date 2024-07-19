@@ -6,9 +6,9 @@ const SingleModal: FC<SingleModalType> = ({ onSubmit, onCancel, placeholder, lab
 
     const submit = () => {
         if (!reasonRef.current) return;
-        const reason: string = reasonRef.current.value;
-        if (!reason) return;
-        onSubmit(reason);
+        const content: string = reasonRef.current.value;
+        if (!content) return;
+        onSubmit(content);
         reasonRef.current.value = "";
     };
     return (

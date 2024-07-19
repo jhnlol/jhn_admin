@@ -24,6 +24,7 @@ interface PermsType {
     dm: boolean;
     revive: boolean;
     heal: boolean;
+    announcment: boolean;
 }
 interface PlayersType {
     id: number;
