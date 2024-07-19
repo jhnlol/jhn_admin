@@ -33,8 +33,7 @@ const Server: FC = () => {
                         >
                             Ogloszenie
                         </button>
-                    )}
-                    
+                    )}    
                 </div>
             </div>
         </>
