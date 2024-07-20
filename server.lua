@@ -115,3 +115,26 @@ AddEventHandler("jhn_admin:saveAll", function()
         print("Player " .. source .. " tried to save all players but doesn't have permission")
     end
 end)
+RegisterServerEvent("jhn_admin:tpPlayer")
+AddEventHandler("jhn_admin:tpPlayer", function(playerId)
+    local xPlayer = ESX.GetPlayerFromId(source)
+    
+    if (Config.perms[xPlayer.getGroup()].tp) then
+        local xTarget = ESX.GetPlayerFromId(playerId)
+        xPlayer.setCoords(xTarget.getCoords())
+    else
+        print("Player " .. source .. " tried to teleport player " .. playerId .. " but doesn't have permission")
+    end
+end)
+RegisterServerEvent("jhn_admin:bringPlayer")
+AddEventHandler("jhn_admin:bringPlayer", function(playerId)
+    local xPlayer = ESX.GetPlayerFromId(source)
+    
+    if (Config.perms[xPlayer.getGroup()].bring) then
+        local xTarget = ESX.GetPlayerFromId(playerId)
+        xTarget.setCoords(xPlayer.getCoords())
+        xTarget.showNotification("Zostałeś przeteleportowany przez " .. GetPlayerName(source))
+    else
+        print("Player " .. source .. " tried to bring player " .. playerId .. " but doesn't have permission")
+    end
+end)

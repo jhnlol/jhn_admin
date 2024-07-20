@@ -9,6 +9,8 @@ Config.perms = {
         announcment = true,
         spawn = true,
         saveAll = true,
+        tp = true,
+        bring = true,
     },
     ["superadmin"] = {
         openMenu = true,
@@ -19,6 +21,8 @@ Config.perms = {
         announcment = true,
         spawn = true,
         saveAll = true,
+        tp = true,
+        bring = true,
     },
     ["user"] = {
         openMenu = false,
@@ -29,6 +33,8 @@ Config.perms = {
         announcment = false,
         spawn = false,
         saveAll = false,
+        tp = false,
+        bring = false,
     },
 }
 Config.spawn = vector3(0, 0, 0)

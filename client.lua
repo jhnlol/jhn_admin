@@ -68,3 +68,11 @@ RegisterNetEvent("jhn_admin:spawnPlayerClient")
 AddEventHandler("jhn_admin:spawnPlayerClient", function()
     SetEntityCoords(PlayerPedId(), Config.spawn)
 end)
+RegisterNuiCallback("tpPlayer", function(data, cb)
+    local playerId = data[1]
+    TriggerServerEvent("jhn_admin:tpPlayer", playerId)
+end)
+RegisterNuiCallback("bringPlayer", function(data, cb)
+    local playerId = data[1]
+    TriggerServerEvent("jhn_admin:bringPlayer", playerId)
+end)

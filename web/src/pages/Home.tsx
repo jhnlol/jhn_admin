@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { Link } from "react-router-dom";
@@ -6,17 +6,31 @@ import { PlayersType } from "../store/slices/playersSlice";
 
 const Home: FC = () => {
     const players: PlayersType[] = useSelector((state: RootState) => state.players.players);
-
+    const [searchQuery, setSearchQuery] = useState("");
+    const filteredPlayers = players.filter(player =>
+        player.nick.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        player.id.toString().includes(searchQuery)
+    );
     return (
-        <div className="h-full text-white">
-            <div className="container mx-auto py-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-6">
-                    {players.map(player => (
-                        <Link to={`/player/${player.id}`} key={player.id} className="text-lg">
+        <div className="h-full py-12 text-white">
+            <div className="container mx-auto px-4">
+                <input
+                    type="text"
+                    placeholder="Szukaj gracza po nicku lub ID..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full p-3 mb-6 rounded-lg border border-gray-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    {filteredPlayers.map(player => (
+                        <Link to={`/player/${player.id}`} key={player.id} className="group">
                             <div
-                                className="bg-gray-500 p-2 rounded-lg shadow-lg flex items-center justify-center space-x-4 cursor-pointer hover:bg-gray-700 transition-colors duration-300"
+                                className="bg-gray-700 p-6 rounded-lg shadow-lg hover:bg-gray-600 transition duration-300 transform hover:scale-105"
                             >
-                                {player.nick}
+                                <div className="text-center">
+                                    <h2 className="text-xl font-semibold mb-2">{player.nick}</h2>
+                                    <div className="text-gray-400">{player.id}</div>
+                                </div>
                             </div>
                         </Link>
                     ))}

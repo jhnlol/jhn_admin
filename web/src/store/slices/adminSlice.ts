@@ -14,6 +14,8 @@ const initialState: AdminState = {
         announcment: false,
         spawn: false,
         saveAll: false,
+        tp: false,
+        bring: false,
     },
 };
 

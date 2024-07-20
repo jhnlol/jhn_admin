@@ -18,7 +18,7 @@ const App: FC = () => {
     <BrowserRouter>
       <Listener />
       <div className={`items-center justify-center h-screen text-white ${visible ? 'flex' : 'hidden'}`}>
-        <div className="bg-black w-2/3 h-2/3 rounded-lg bg-opacity-90 flex flex-col">
+        <div className="bg-gradient-to-r from-gray-800 to-gray-900 w-2/3 h-2/3 bg-opacity-95 rounded-lg flex flex-col">
           <Header closeMenu={() => {
             dispatch(setVisible(false));
             fetchNui("closeMenu");

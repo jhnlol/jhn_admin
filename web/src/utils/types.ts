@@ -27,6 +27,8 @@ interface PermsType {
     announcment: boolean;
     spawn: boolean;
     saveAll: boolean;
+    tp: boolean;
+    bring: boolean;
 }
 interface PlayersType {
     id: number;

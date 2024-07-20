@@ -20,7 +20,7 @@ const Header: FC<{ closeMenu: () => void }> = ({ closeMenu }) => {
           ) : (
             <Link
               to="/server"
-              className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300"
+              className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300"
             >
               Sterowanie Serwerem
             </Link>
