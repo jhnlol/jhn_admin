@@ -33,10 +33,13 @@ interface PermsType {
 interface PlayersType {
     id: number;
     nick: string;
-  }
-  
+}
+interface MapTypes {
+    playerCoords: { x: number, y: number };
+}  
 export type { PlayerType };
 export type { SingleModalType };
 export type { ConfirmModalType };
 export type { PermsType };
 export type { PlayersType };
+export type {MapTypes}

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { RootState } from "../store/store";
@@ -45,14 +45,12 @@ const Player: FC = () => {
 
     const [playerData, setPlayerData] = useState<PlayerType | null>(null);
 
-    useEffect(() => {
-        if (player) {
-            fetchNui<PlayerType>("getPlayerData", [player.id])
-                .then((data) => {
-                    setPlayerData(data);
-                });
-        }
-    }, [player]);
+    if (player) {
+        fetchNui<PlayerType>("getPlayerData", [player.id])
+            .then((data) => {
+                setPlayerData(data);
+            });
+    }
 
     if (!player) {
         return <div className="text-white">Player not found</div>;

@@ -2,10 +2,17 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FC } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { setVisible } from "../store/slices/appSlice";
+import { useDispatch } from "react-redux";
+import { fetchNui } from "../utils/fetchNui";
 
-const Header: FC<{ closeMenu: () => void }> = ({ closeMenu }) => {
+const Header: FC = () => {
     const location = useLocation();
-  
+    const dispatch = useDispatch();
+    const closeMenu= (): void => {
+      dispatch(setVisible(false));
+      fetchNui("closeMenu");
+    }
     return (
       <div className="header mt-3 flex items-center px-4 justify-between">
         <h1 className="text-3xl font-bold">JHN ADMIN MENU</h1>

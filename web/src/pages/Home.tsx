@@ -7,7 +7,7 @@ import { PlayersType } from "../store/slices/playersSlice";
 const Home: FC = () => {
     const players: PlayersType[] = useSelector((state: RootState) => state.players.players);
     const [searchQuery, setSearchQuery] = useState("");
-    const filteredPlayers = players.filter(player =>
+    const searched = players.filter(player =>
         player.nick.toLowerCase().includes(searchQuery.toLowerCase()) ||
         player.id.toString().includes(searchQuery)
     );
@@ -22,10 +22,10 @@ const Home: FC = () => {
                     className="w-full p-3 mb-6 rounded-lg border border-gray-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    {filteredPlayers.map(player => (
+                    {searched.map(player => (
                         <Link to={`/player/${player.id}`} key={player.id} className="group">
                             <div
-                                className="bg-gray-700 p-6 rounded-lg shadow-lg hover:bg-gray-600 transition duration-300 transform hover:scale-105"
+                                className="bg-gray-700 p-4 rounded-lg shadow-lg hover:bg-gray-600 transition duration-300 transform hover:scale-105"
                             >
                                 <div className="text-center">
                                     <h2 className="text-xl font-semibold mb-2">{player.nick}</h2>
