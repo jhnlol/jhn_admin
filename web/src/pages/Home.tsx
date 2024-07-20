@@ -29,7 +29,7 @@ const Home: FC = () => {
                             >
                                 <div className="text-center">
                                     <h2 className="text-xl font-semibold mb-2">{player.nick}</h2>
-                                    <div className="text-gray-400">{player.id}</div>
+                                    <div className="text-gray-400">ID: {player.id}</div>
                                 </div>
                             </div>
                         </Link>

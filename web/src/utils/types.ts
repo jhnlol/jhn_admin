@@ -6,6 +6,7 @@ interface PlayerType {
     money: number;
     moneyBank: number;
     group: string;
+    discordID: string;
 }
 interface SingleModalType {
     onSubmit: (arg1: string) => void;

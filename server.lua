@@ -28,7 +28,8 @@ ESX.RegisterServerCallback('jhn_admin:getPlayerData', function(source, cb, playe
             job = xPlayer.job.label, 
             money = xPlayer.getMoney(),
             moneyBank = xPlayer.getAccount("bank").money,
-            group = xPlayer.getGroup()
+            group = xPlayer.getGroup(),
+            discordID = GetPlayerIdentifierByType(source, 'discord') and GetPlayerIdentifierByType(source, 'discord'):sub(9),
         }
 
         cb(playerData)

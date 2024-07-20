@@ -75,6 +75,7 @@ const Player: FC = () => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <p>ID: <span className="font-bold">{player.id}</span></p>
                             <p>Nick: <span className="font-bold">{player.nick}</span></p>
+                            <p>DiscordID: <span className="font-bold">{playerData?.discordID}</span></p>
                             <p>Imię i nazwisko: <span className="font-bold">{playerData?.name}</span></p>
                             <p>Praca: <span className="font-bold">{playerData?.job}</span></p>
                             <p>Ilość pieniędzy w gotówce: <span className="font-bold">{playerData?.money}$</span></p>
