@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { RootState } from "../store/store";
@@ -45,12 +45,14 @@ const Player: FC = () => {
 
     const [playerData, setPlayerData] = useState<PlayerType | null>(null);
 
-    if (player) {
-        fetchNui<PlayerType>("getPlayerData", [player.id])
-            .then((data) => {
-                setPlayerData(data);
-            });
-    }
+    useEffect(() => {
+        if (player) {
+            fetchNui<PlayerType>("getPlayerData", [player.id])
+                .then((data) => {
+                    setPlayerData(data);
+                });
+        }
+    }, [player]);
 
     if (!player) {
         return <div className="text-white">Player not found</div>;
@@ -58,61 +60,90 @@ const Player: FC = () => {
 
     return (
         <>
-            {modal.kick && <SingleModal onSubmit={(reason: string) => handleSubmit("kick", reason)} onCancel={() => handleModal("kick", false)} placeholder="Powod" label="Kick" />}
-            {modal.dm && <SingleModal onSubmit={(content: string) => handleSubmit("dm", content)} onCancel={() => handleModal("dm", false)} placeholder="Tresc" label="Wiadomosc Prywatna" />}
-            {modal.revive && <ConfirmModal onSubmit={() => handleSubmit("revive")} onCancel={() => handleModal("revive", false)} label="Revive" text="Czy napewno chcesz zrewowac?" />}
-            {modal.heal && <ConfirmModal onSubmit={() => handleSubmit("heal")} onCancel={() => handleModal("heal", false)} label="Heal" text="Czy napewno chcesz zhealowac?" />}
-            {modal.spawn && <ConfirmModal onSubmit={() => handleSubmit("spawn")} onCancel={() => handleModal("spawn", false)} label="Spawn" text="Czy napewno chcesz przeteleportowac uzytkownika na spawn?" />}
-            {modal.tp && <ConfirmModal onSubmit={() => handleSubmit("tp")} onCancel={() => handleModal("tp", false)} label="TP" text="Czy napewno chcesz przeteleportowac sie do uzytkownika?" />}
-            {modal.bring && <ConfirmModal onSubmit={() => handleSubmit("bring")} onCancel={() => handleModal("bring", false)} label="Bring" text="Czy napewno chcesz przeteleportowac uzytkownika do siebie?" />}
-            <div className="text-white">
-                <div className="m-6">
-                    <h1 className="text-2xl font-bold">Informacje</h1>
-                    <p>ID: <span className="font-bold">{player.id}</span></p>
-                    <p>Nick: <span className="font-bold">{player.nick}</span></p>
-                    <p>Imie i nazwisko: <span className="font-bold">{playerData?.name}</span></p>
-                    <p>Praca: <span className="font-bold">{playerData?.job}</span></p>
-                    <p>Ilosc pieniedzy w gotowce: <span className="font-bold">{playerData?.money}$</span></p>
-                    <p>Ilosc pieniedzy w banku: <span className="font-bold">{playerData?.moneyBank}$</span></p>
-                    <p>Permisje: <span className="font-bold">{playerData?.group}</span></p>
-                </div>
-                <div className="m-4">
-                    <h1 className="text-2xl font-bold m-2">Akcje</h1>
-                    {perms.kick && (
-                        <button className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded m-2" onClick={() => handleModal("kick", true)}>
-                            Kick
-                        </button>
-                    )}
-                    {perms.dm && (
-                        <button className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded m-2" onClick={() => handleModal("dm", true)}>
-                            Wiadomosc Prywatna
-                        </button>
-                    )}
-                    {perms.revive && (
-                        <button className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded m-2" onClick={() => handleModal("revive", true)}>
-                            Revive
-                        </button>
-                    )}
-                    {perms.heal && (
-                        <button className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded m-2" onClick={() => handleModal("heal", true)}>
-                            Heal
-                        </button>
-                    )}
-                    {perms.spawn && (
-                        <button className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded m-2" onClick={() => handleModal("spawn", true)}>
-                            Spawn
-                        </button>
-                    )}
-                    {perms.tp && (
-                        <button className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded m-2" onClick={() => handleModal("tp", true)}>
-                            TP
-                        </button>
-                    )}
-                    {perms.bring && (
-                        <button className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded m-2" onClick={() => handleModal("bring", true)}>
-                            Bring
-                        </button>
-                    )}
+            {modal.kick && <SingleModal onSubmit={(reason: string) => handleSubmit("kick", reason)} onCancel={() => handleModal("kick", false)} placeholder="Powód" label="Kick" />}
+            {modal.dm && <SingleModal onSubmit={(content: string) => handleSubmit("dm", content)} onCancel={() => handleModal("dm", false)} placeholder="Treść" label="Wiadomość Prywatna" />}
+            {modal.revive && <ConfirmModal onSubmit={() => handleSubmit("revive")} onCancel={() => handleModal("revive", false)} label="Revive" text="Czy na pewno chcesz zrewować?" />}
+            {modal.heal && <ConfirmModal onSubmit={() => handleSubmit("heal")} onCancel={() => handleModal("heal", false)} label="Heal" text="Czy na pewno chcesz zhealować?" />}
+            {modal.spawn && <ConfirmModal onSubmit={() => handleSubmit("spawn")} onCancel={() => handleModal("spawn", false)} label="Spawn" text="Czy na pewno chcesz przeteleportować użytkownika na spawn?" />}
+            {modal.tp && <ConfirmModal onSubmit={() => handleSubmit("tp")} onCancel={() => handleModal("tp", false)} label="TP" text="Czy na pewno chcesz przeteleportować się do użytkownika?" />}
+            {modal.bring && <ConfirmModal onSubmit={() => handleSubmit("bring")} onCancel={() => handleModal("bring", false)} label="Bring" text="Czy na pewno chcesz przeteleportować użytkownika do siebie?" />}
+
+            <div className="container mx-auto p-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+                        <h1 className="text-3xl font-bold mb-4">Informacje o graczu</h1>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <p>ID: <span className="font-bold">{player.id}</span></p>
+                            <p>Nick: <span className="font-bold">{player.nick}</span></p>
+                            <p>Imię i nazwisko: <span className="font-bold">{playerData?.name}</span></p>
+                            <p>Praca: <span className="font-bold">{playerData?.job}</span></p>
+                            <p>Ilość pieniędzy w gotówce: <span className="font-bold">{playerData?.money}$</span></p>
+                            <p>Ilość pieniędzy w banku: <span className="font-bold">{playerData?.moneyBank}$</span></p>
+                            <p>Permisje: <span className="font-bold">{playerData?.group}</span></p>
+                        </div>
+                    </div>
+
+                    <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+                        <h1 className="text-3xl font-bold mb-4">Akcje</h1>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {perms.kick && (
+                                <button
+                                    className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+                                    onClick={() => handleModal("kick", true)}
+                                >
+                                    Kick
+                                </button>
+                            )}
+                            {perms.dm && (
+                                <button
+                                    className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+                                    onClick={() => handleModal("dm", true)}
+                                >
+                                    Wiadomość Prywatna
+                                </button>
+                            )}
+                            {perms.revive && (
+                                <button
+                                    className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+                                    onClick={() => handleModal("revive", true)}
+                                >
+                                    Revive
+                                </button>
+                            )}
+                            {perms.heal && (
+                                <button
+                                    className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+                                    onClick={() => handleModal("heal", true)}
+                                >
+                                    Heal
+                                </button>
+                            )}
+                            {perms.spawn && (
+                                <button
+                                    className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+                                    onClick={() => handleModal("spawn", true)}
+                                >
+                                    Spawn
+                                </button>
+                            )}
+                            {perms.tp && (
+                                <button
+                                    className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+                                    onClick={() => handleModal("tp", true)}
+                                >
+                                    TP
+                                </button>
+                            )}
+                            {perms.bring && (
+                                <button
+                                    className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+                                    onClick={() => handleModal("bring", true)}
+                                >
+                                    Bring
+                                </button>
+                            )}
+                        </div>
+                    </div>
                 </div>
             </div>
         </>

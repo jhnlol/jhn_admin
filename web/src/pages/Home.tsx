@@ -6,10 +6,10 @@ import { PlayersType } from "../store/slices/playersSlice";
 
 const Home: FC = () => {
     const players: PlayersType[] = useSelector((state: RootState) => state.players.players);
-    const [searchQuery, setSearchQuery] = useState("");
+    const [search, setSearch] = useState("");
     const searched = players.filter(player =>
-        player.nick.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        player.id.toString().includes(searchQuery)
+        player.nick.toLowerCase().includes(search.toLowerCase()) ||
+        player.id.toString().includes(search)
     );
     return (
         <div className="h-full py-12 text-white">
@@ -17,8 +17,8 @@ const Home: FC = () => {
                 <input
                     type="text"
                     placeholder="Szukaj gracza po nicku lub ID..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
                     className="w-full p-3 mb-6 rounded-lg border border-gray-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

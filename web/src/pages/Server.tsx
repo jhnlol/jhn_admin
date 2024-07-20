@@ -23,24 +23,31 @@ const Server: FC = () => {
 
     return (
         <>
-            {modal.announcment && (<SingleModal onSubmit={(content: string) => handleSubmit("announcment", content)} onCancel={() => handleModal("announcment", false)} placeholder="Tresc" label="Ogloszenie"/>)}
+            {modal.announcment && (
+                <SingleModal 
+                    onSubmit={(content: string) => handleSubmit("announcment", content)} 
+                    onCancel={() => handleModal("announcment", false)} 
+                    placeholder="Treść" 
+                    label="Ogłoszenie"
+                />
+            )}
             <div className="container mx-auto py-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-6">
+                <div className="flex flex-wrap justify-center gap-6 m-6">
                     {perms.announcment && (
                         <button
-                            className="text-lg bg-gray-700 hover:bg-gray-600 p-2 rounded-lg shadow-lg flex items-center justify-center space-x-4 cursor-pointer transition-colors duration-300"
-                            onClick={() => handleModal("announcment", true)} 
+                            className="w-full sm:w-auto text-lg bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition-colors duration-300"
+                            onClick={() => handleModal("announcment", true)}
                         >
-                            Ogloszenie
+                            Ogłoszenie
                         </button>
                     )}
                     {perms.saveAll && (
                         <button
-                            className="text-lg bg-gray-700 hover:bg-gray-600 p-2 rounded-lg shadow-lg flex items-center justify-center space-x-4 cursor-pointer transition-colors duration-300"
+                            className="w-full sm:w-auto text-lg bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition-colors duration-300"
                             onClick={() => fetchNui("saveAll")}
-                        >        
-                            SaveAll 
-                        </button>   
+                        >
+                            Save All
+                        </button>
                     )}
                 </div>
             </div>
