@@ -1,19 +1,28 @@
+local players = {}
 ESX = exports["es_extended"]:getSharedObject()
-
+AddEventHandler('esx:playerLoaded', function(player, xPlayer)
+    if xPlayer then
+        getDiscordAvatar(xPlayer.source, function(avatarUrl)
+            table.insert(players, {
+                id = xPlayer.source,
+                nick = GetPlayerName(xPlayer.source),
+                discordAvatar = avatarUrl
+            })
+        end)
+    end
+end)
+AddEventHandler("esx:playerDropped", function(player)
+    for i, v in ipairs(players) do
+        if v.id == player then
+            table.remove(players, i)
+            break
+        end
+    end
+end)
 ESX.RegisterServerCallback("jhn_admin:openMenu", function(source, cb)
-    local players = {}
-    local xPlayers = ESX.GetPlayers()
     local xPlayer = ESX.GetPlayerFromId(source)
     local group = xPlayer.getGroup()
     local perms = Config.perms[group] or Config.perms["user"] 
-
-    for _, playerId in ipairs(xPlayers) do
-        local xPlayer = ESX.GetPlayerFromId(playerId)
-        table.insert(players, {
-            id = xPlayer.source,
-            nick = GetPlayerName(xPlayer.source)
-        })
-    end
     
     cb(players, perms)
 end)
@@ -139,3 +148,23 @@ AddEventHandler("jhn_admin:bringPlayer", function(playerId)
         print("Player " .. source .. " tried to bring player " .. playerId .. " but doesn't have permission")
     end
 end)
+function getDiscordAvatar(source, callback)
+    local discordId = GetPlayerIdentifierByType(source, 'discord') and GetPlayerIdentifierByType(source, 'discord'):sub(9)
+    local botToken = "MTE3MzMzMzMyNDkzNzMwNjE1Mw.GKjZZx.gv2WXRe5dz26nsJ_s4pvkZQkOCaY_WsrLi78ZI"
+    local apiEndpoint = "https://discord.com/api/v9/users/"..discordId
+
+    PerformHttpRequest(apiEndpoint, function(statusCode, responseText, headers)
+        if statusCode == 200 then
+            local data = json.decode(responseText)
+            if data and data.avatar then
+                local avatarUrl = string.format("https://cdn.discordapp.com/avatars/%s/%s.png", discordId, data.avatar)
+                callback(avatarUrl)
+            else
+                callback(nil)
+            end
+        else
+            print("Failed to fetch Discord avatar, status code: " .. statusCode)
+            callback(nil)
+        end
+    end, "GET", "", {["Authorization"] = "Bot " .. botToken})
+end

@@ -34,6 +34,7 @@ interface PermsType {
 interface PlayersType {
     id: number;
     nick: string;
+    discordAvatar: string;
 }
 interface MapTypes {
     playerCoords: { x: number, y: number };
