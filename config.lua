@@ -38,3 +38,4 @@ Config.perms = {
     },
 }
 Config.spawn = vector3(0, 0, 0)
+Config.botToken = ""
