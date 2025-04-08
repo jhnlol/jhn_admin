@@ -150,7 +150,7 @@ AddEventHandler("jhn_admin:bringPlayer", function(playerId)
 end)
 function getDiscordAvatar(source, callback)
     local discordId = GetPlayerIdentifierByType(source, 'discord') and GetPlayerIdentifierByType(source, 'discord'):sub(9)
-    local botToken = "MTE3MzMzMzMyNDkzNzMwNjE1Mw.GKjZZx.gv2WXRe5dz26nsJ_s4pvkZQkOCaY_WsrLi78ZI"
+    local botToken = Config.botToken
     local apiEndpoint = "https://discord.com/api/v9/users/"..discordId
 
     PerformHttpRequest(apiEndpoint, function(statusCode, responseText, headers)
